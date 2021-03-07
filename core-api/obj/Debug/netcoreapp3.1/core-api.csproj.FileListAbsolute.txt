@@ -72,3 +72,5 @@ C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\DAL.dll
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\DAL.pdb
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\LOGIC.dll
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\LOGIC.pdb
+C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\BASE.dll
+C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\BASE.pdb

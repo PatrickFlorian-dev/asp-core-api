@@ -1610,10 +1610,21 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "BASE/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/BASE.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BASE.dll": {}
+        }
+      },
       "DAL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
+          "BASE": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.3",
           "Microsoft.Extensions.Configuration.Json": "5.0.0"
         },
@@ -6036,6 +6047,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "BASE/1.0.0": {
+      "type": "project",
+      "path": "../BASE/BASE.csproj",
+      "msbuildProject": "../BASE/BASE.csproj"
+    },
     "DAL/1.0.0": {
       "type": "project",
       "path": "../DAL/DAL.csproj",
@@ -6044,6 +6060,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "BASE >= 1.0.0",
       "DAL >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.3",
       "Microsoft.Extensions.Configuration.Json >= 5.0.0"
@@ -6080,6 +6097,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
+            "C:\\Users\\patri\\source\\repos\\core-api\\BASE\\BASE.csproj": {
+              "projectPath": "C:\\Users\\patri\\source\\repos\\core-api\\BASE\\BASE.csproj"
+            },
             "C:\\Users\\patri\\source\\repos\\core-api\\DAL\\DAL.csproj": {
               "projectPath": "C:\\Users\\patri\\source\\repos\\core-api\\DAL\\DAL.csproj"
             }
