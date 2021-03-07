@@ -1,4 +1,5 @@
-﻿using DAL.Entities;
+﻿using core_api.Models;
+using DAL.Entities;
 using DAL.Functions;
 using DAL.Interfaces;
 using System;
@@ -13,11 +14,11 @@ namespace LOGIC.UserLogic
         private IUser _user = new UserFunctions();
 
         // Add a new user
-        public async Task<Boolean> CreateNewUser(string username, string emailAddress, string firstName, string lastName, string password, int authLevelId)
+        public async Task<Boolean> CreateNewUser(UserViewModel userObj)
         {
             try
             {
-                var result = await _user.AddUser(username, emailAddress, firstName, lastName, password, authLevelId);
+                var result = await _user.AddUser(userObj);
                 if (result.Id > 0)
                 {
                     return true;

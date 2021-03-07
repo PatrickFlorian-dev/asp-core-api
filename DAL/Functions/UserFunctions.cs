@@ -1,4 +1,5 @@
-﻿using DAL.DataContext;
+﻿using core_api.Models;
+using DAL.DataContext;
 using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -12,16 +13,16 @@ namespace DAL.Functions
     public class UserFunctions : IUser
     {
         // Add a new user
-        public async Task<User> AddUser(string username, string emailAddress, string firstName, string lastName, string password, int authLevelId)
+        public async Task<User> AddUser(UserViewModel userObj)
         {
             User newUser = new User
             {
-                Email = emailAddress,
-                Password = password,
-                Username = username,
-                FirstName = firstName,
-                LastName = lastName,
-                AuthLevelRefId = authLevelId,
+                Email = userObj.EmailAddress,
+                Password = userObj.Password,
+                Username = userObj.Username,
+                FirstName = userObj.FirstName,
+                LastName = userObj.LastName,
+                AuthLevelRefId = userObj.AuthLevel,
                 // TODO: Create a constructor or override saveAsync method to inspect and automatically add this property going forward
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,

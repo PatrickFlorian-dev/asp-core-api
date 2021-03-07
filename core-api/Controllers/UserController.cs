@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using core_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LOGIC.UserLogic;
+using core_api.Common;
+using core_api.Models;
 
 namespace core_api.Controllers
 {
@@ -34,7 +35,7 @@ namespace core_api.Controllers
                         LastName = user.LastName,
                         EmailAddress = user.Email,
                         CreatedAt = user.CreatedAt,
-                        UpdatedAt = user.UpdatedAt,
+                        UpdatedAt = user.UpdatedAt
                     };
                     userList.Add(currentUser);
                 };
@@ -44,16 +45,14 @@ namespace core_api.Controllers
 
         }
 
-        // GET api/user/adduser
-        [HttpGet("adduser/{username}/{emailAddress}/{firstName}/{lastName}/{password}/{authLevelId}")]
-        // Add a new user *** NOTE: passing these params in via a url for now just to quickly demo DB, will switch to passing object and POST request in next branch ***
-        // API for quick demo would look like this https://localhost:44366/api/user/adduser/testUserName/testEmail/TestFName/TestLName/TestPassword/1
-        public async Task<Boolean> AddUser(string username, string emailAddress, string firstName, string lastName, string password, int authLevelId)
+        // POST api/user/adduser
+        [HttpPost("adduser")]
+        public async Task<Boolean> AddUser(UserViewModel userObj)
         {
             // Add Logic to check if username exists
             // Add logic to encrypt password
             // Add logic to return more robust object instead of boolean
-            bool result = await userLogic.CreateNewUser(username, emailAddress, firstName, lastName, password, authLevelId);
+            bool result = await userLogic.CreateNewUser(userObj);
             return result;
         }
 

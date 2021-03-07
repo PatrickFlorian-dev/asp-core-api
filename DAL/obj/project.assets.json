@@ -1609,6 +1609,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "BASE/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/BASE.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BASE.dll": {}
+        }
       }
     }
   },
@@ -6021,10 +6031,16 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "BASE/1.0.0": {
+      "type": "project",
+      "path": "../BASE/BASE.csproj",
+      "msbuildProject": "../BASE/BASE.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "BASE >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.3",
       "Microsoft.Extensions.Configuration.Json >= 5.0.0"
@@ -6060,7 +6076,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\patri\\source\\repos\\core-api\\BASE\\BASE.csproj": {
+              "projectPath": "C:\\Users\\patri\\source\\repos\\core-api\\BASE\\BASE.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

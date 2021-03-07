@@ -7,9 +7,11 @@ namespace core_api.Models
 {
     public class UserViewModel
     {
-        public Int64 UserId { get; set; }
+        public Int64? UserId { get; set; }
 
         public String Username { get; set; }
+
+        public String? Password { get; set; }
 
         public String EmailAddress { get; set; }
 
