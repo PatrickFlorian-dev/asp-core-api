@@ -30,6 +30,7 @@ namespace core_api.Controllers
         }
 
         // POST api/user/adduser
+        [AllowAnonymous] // Allow an unauthed user to add themselves
         [HttpPost("adduser")]
         public async Task<HttpResult> AddUser(UserViewModel userObj)
         {

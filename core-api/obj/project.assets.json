@@ -1936,10 +1936,7 @@
         },
         "runtime": {
           "bin/placeholder/DAL.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        }
       },
       "LOGIC/1.0.0": {
         "type": "project",

@@ -1,4 +1,6 @@
-﻿using DAL.Interfaces;
+﻿using DAL.DataContext;
+using DAL.Entities;
+using DAL.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -12,21 +14,34 @@ namespace core_api.Common
 {
     public class JwtAuthenticationManager: IJwtAuthenticationManager
     {
-        // Replace this with DB call
-        private readonly IDictionary<string, string> users = new Dictionary<string, string>
+
+        private DatabaseContext dbContext = new DatabaseContext(DatabaseContext.ops.dbOptions);
+        private readonly PasswordCrypter passwordCrypter;
+
+        public JwtAuthenticationManager()
         {
-            { "test1", "password1" },
-            { "test2", "password1" },
-        };
+            this.passwordCrypter = new PasswordCrypter();
+        }
 
         public string Authenticate(string username, string password)
         {
             string tokenKeyEnvStr = Environment.GetEnvironmentVariable("APP_TOKEN_KEY");
 
-            // FOR TEST ONLY REPLACE WITH DB CALL FROM USERS TABLE
-            if (users != null)
+            User checkUserExists = dbContext.Users
+              .Where
+              (u => u.Username.ToLower() == username.ToLower())
+              .FirstOrDefault();
 
-            if (users.Any( u => u.Key != username && u.Value != password))
+            // Username doesn't exist in user model 
+            if (checkUserExists == null)
+            {
+                return null;
+            }
+
+            string deCryptedPassword = passwordCrypter.DecryptPassword(checkUserExists.Password);
+
+            // Password doesn't match, case sensitive
+            if( deCryptedPassword != password)
             {
                 return null;
             }

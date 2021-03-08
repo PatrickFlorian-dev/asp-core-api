@@ -47,7 +47,6 @@ namespace core_api
                        ValidateAudience = false
                    };
                });
-            //services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
