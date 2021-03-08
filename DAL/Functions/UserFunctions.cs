@@ -1,4 +1,6 @@
-﻿using core_api.Models;
+﻿using BASE.Models;
+using core_api.Common;
+using core_api.Models;
 using DAL.DataContext;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -9,11 +11,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DAL.Functions
 {
     public class UserFunctions : IUser
     {
         private DatabaseContext dbContext = new DatabaseContext(DatabaseContext.ops.dbOptions);
+
+        private readonly IJwtAuthenticationManager jwtAuthenticationManager;
+
+        public UserFunctions()
+        {
+            this.jwtAuthenticationManager = new JwtAuthenticationManager();
+        }
+
         // Add a new user
         public async Task<User> AddUser(UserViewModel userObj)
         {
@@ -68,10 +79,11 @@ namespace DAL.Functions
             return userList;
         }
 
-        // Authenticate a user
-        public /*async*/ bool Authenticate()
+        // Authenticate a user and get back a JWT token
+        public string Authenticate(UserViewModel userObj)
         {
-            return true;
+            return jwtAuthenticationManager.Authenticate(userObj.Username, userObj.Password);
+           
         }
     }
 }

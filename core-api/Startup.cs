@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using core_api.Common;
+using DAL.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace core_api
 {
@@ -26,6 +31,23 @@ namespace core_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAuthentication(x =>
+               {
+                   x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                   x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+               }).AddJwtBearer( x =>
+               {
+                   x.RequireHttpsMetadata = false;
+                   x.SaveToken = true;
+                   x.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuerSigningKey = true,
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("APP_TOKEN_KEY"))),
+                       ValidateIssuer = false,
+                       ValidateAudience = false
+                   };
+               });
+            //services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +62,8 @@ namespace core_api
 
             app.UseRouting();
 
-            
+            // Added for auth
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

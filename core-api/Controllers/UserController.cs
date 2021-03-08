@@ -8,14 +8,16 @@ using LOGIC.UserLogic;
 using core_api.Common;
 using core_api.Models;
 using BASE.Models;
+using DAL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace core_api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-
         private UserLogic userLogic = new UserLogic();
 
         // GET api/user
@@ -36,10 +38,11 @@ namespace core_api.Controllers
         }
 
         // POST api/user/authenticate
+        [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<HttpResult> Authenticate(UserViewModel userObj)
+        public HttpResult Authenticate(UserViewModel userObj)
         {
-            HttpResult result = await userLogic.Authenticate();
+            HttpResult result = userLogic.Authenticate(userObj);
             return result;
         }
 

@@ -41,8 +41,6 @@ C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\Microsoft.
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Physical.dll
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\System.Text.Json.dll
-C:\Users\patri\source\repos\core-api\core-api\obj\Debug\netcoreapp3.1\core-api.csproj.CoreCompileInputs.cache
-C:\Users\patri\source\repos\core-api\core-api\obj\Debug\netcoreapp3.1\core-api.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
@@ -74,3 +72,6 @@ C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\LOGIC.dll
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\LOGIC.pdb
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\BASE.dll
 C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\BASE.pdb
+C:\Users\patri\source\repos\core-api\core-api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\patri\source\repos\core-api\core-api\obj\Debug\netcoreapp3.1\core-api.csproj.CoreCompileInputs.cache
+C:\Users\patri\source\repos\core-api\core-api\obj\Debug\netcoreapp3.1\core-api.MvcApplicationPartsAssemblyInfo.cache
