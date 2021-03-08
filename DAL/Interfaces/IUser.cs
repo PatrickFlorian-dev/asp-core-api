@@ -10,6 +10,6 @@ namespace DAL.Interfaces
     public interface IUser
     {
         Task<User> AddUser(UserViewModel userObj);
-        Task<List<User>> GetAllUsers();
+        Task<List<UserViewModel>> GetAllUsers();
     }
 }
