@@ -35,5 +35,13 @@ namespace core_api.Controllers
             return result;
         }
 
+        // POST api/user/authenticate
+        [HttpPost("authenticate")]
+        public async Task<HttpResult> Authenticate(UserViewModel userObj)
+        {
+            HttpResult result = await userLogic.Authenticate();
+            return result;
+        }
+
     }
 }

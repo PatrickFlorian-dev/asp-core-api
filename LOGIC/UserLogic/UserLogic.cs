@@ -71,5 +71,25 @@ namespace LOGIC.UserLogic
             }
         }
 
+        // Authenticat a user
+        public async Task<HttpResult> Authenticate()
+        {
+            bool auth = _user.Authenticate();
+
+            try
+            {
+
+                httpResult.success = true;
+                httpResult.data = auth;
+                httpResult.message = "Succesfully called Auth";
+                return httpResult;
+
+            }
+            catch (Exception error)
+            {
+                return new HttpResult { success = false, data = error, message = "API failed - GetAllUsers" };
+            }
+        }
+
     }
 }

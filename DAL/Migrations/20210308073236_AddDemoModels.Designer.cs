@@ -4,14 +4,16 @@ using DAL.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210308073236_AddDemoModels")]
+    partial class AddDemoModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,47 +35,6 @@ namespace DAL.Migrations
                     b.HasKey("AuthId");
 
                     b.ToTable("AuthenticationLevels");
-                });
-
-            modelBuilder.Entity("DAL.Entities.DemoDataObject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ObjectName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DemoDataObject");
-                });
-
-            modelBuilder.Entity("DAL.Entities.DemoDataProperties", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("DemoObjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ObjectId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DemoObjectId");
-
-                    b.ToTable("DemoDataProperties");
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
@@ -119,15 +80,6 @@ namespace DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DAL.Entities.DemoDataProperties", b =>
-                {
-                    b.HasOne("DAL.Entities.DemoDataObject", "DemoObject")
-                        .WithMany("Properties")
-                        .HasForeignKey("DemoObjectId");
-
-                    b.Navigation("DemoObject");
-                });
-
             modelBuilder.Entity("DAL.Entities.User", b =>
                 {
                     b.HasOne("DAL.Entities.AuthenticationLevel", null)
@@ -140,11 +92,6 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.AuthenticationLevel", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("DAL.Entities.DemoDataObject", b =>
-                {
-                    b.Navigation("Properties");
                 });
 #pragma warning restore 612, 618
         }

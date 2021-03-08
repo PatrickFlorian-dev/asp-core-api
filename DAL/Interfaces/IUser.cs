@@ -11,5 +11,7 @@ namespace DAL.Interfaces
     {
         Task<User> AddUser(UserViewModel userObj);
         Task<List<UserViewModel>> GetAllUsers();
+
+        bool Authenticate();
     }
 }

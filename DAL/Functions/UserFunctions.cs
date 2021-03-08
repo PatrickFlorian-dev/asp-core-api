@@ -67,5 +67,11 @@ namespace DAL.Functions
 
             return userList;
         }
+
+        // Authenticate a user
+        public /*async*/ bool Authenticate()
+        {
+            return true;
+        }
     }
 }
