@@ -46,10 +46,11 @@ namespace LOGIC.UserLogic
         // Get all users
         public async Task<HttpResult> GetAllUsers()
         {
-            List<UserViewModel> users = await _user.GetAllUsers();
 
             try
             {
+                List<UserViewModel> users = await _user.GetAllUsers();
+
                 if (users.Count > 0)
                 {
                     httpResult.success = true;
@@ -64,6 +65,36 @@ namespace LOGIC.UserLogic
                     httpResult.message = "Failed to retreive all usersr";
                     return httpResult;
                 }
+            }
+            catch (Exception error)
+            {
+                return new HttpResult { success = false, data = error, message = "API failed - GetAllUsers" };
+            }
+        }
+
+        // Authenticate a user
+        public HttpResult Authenticate(UserViewModel userObj)
+        {
+
+            try
+            {
+
+                AuthenticationResponse token = _user.Authenticate(userObj);
+
+                if( token == null )
+                {
+                    httpResult.success = false;
+                    httpResult.data = null;
+                    httpResult.message = "Failed to called Auth";
+                    return httpResult;
+                } else
+                {
+                    httpResult.success = true;
+                    httpResult.data = token;
+                    httpResult.message = "Succesfully called Auth";
+                    return httpResult;
+                }
+
             }
             catch (Exception error)
             {

@@ -1,10 +1,13 @@
-﻿using core_api.Models;
+﻿using BASE.Models;
+using core_api.Common;
+using core_api.Models;
 using DAL.DataContext;
 using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,18 +17,29 @@ namespace DAL.Functions
     public class UserFunctions : IUser
     {
         private DatabaseContext dbContext = new DatabaseContext(DatabaseContext.ops.dbOptions);
+
+        private readonly IJwtAuthenticationManager jwtAuthenticationManager;
+
+        private readonly PasswordCrypter passwordCrypter;
+
+        public UserFunctions()
+        {
+            this.jwtAuthenticationManager = new JwtAuthenticationManager();
+            this.passwordCrypter = new PasswordCrypter();
+        }
+
         // Add a new user
         public async Task<User> AddUser(UserViewModel userObj)
         {
             User checkUserExists = dbContext.Users
-              .Where(u => u.Email.ToLower() == userObj.EmailAddress).FirstOrDefault();
+              .Where(u => u.Email.ToLower() == userObj.EmailAddress.ToLower()).FirstOrDefault();
 
             if( checkUserExists != null ) { return new User(); }
 
             User newUser = new User
             {
                 Email = userObj.EmailAddress,
-                Password = userObj.Password,
+                Password = passwordCrypter.EncryptPassword(userObj.Password),
                 Username = userObj.Username,
                 FirstName = userObj.FirstName,
                 LastName = userObj.LastName,
@@ -67,5 +81,13 @@ namespace DAL.Functions
 
             return userList;
         }
+
+        // Authenticate a user and get back a JWT token
+        public AuthenticationResponse Authenticate(UserViewModel userObj)
+        {
+            return jwtAuthenticationManager.Authenticate(userObj.Username, userObj.Password);
+           
+        }
+
     }
 }

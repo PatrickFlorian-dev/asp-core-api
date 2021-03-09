@@ -1,4 +1,5 @@
-﻿using core_api.Models;
+﻿using BASE.Models;
+using core_api.Models;
 using DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,7 @@ namespace DAL.Interfaces
     {
         Task<User> AddUser(UserViewModel userObj);
         Task<List<UserViewModel>> GetAllUsers();
+
+        AuthenticationResponse Authenticate(UserViewModel userObj);
     }
 }

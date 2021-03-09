@@ -31,5 +31,7 @@ namespace DAL.DataContext
 
         public DbSet<User> Users { get; set; }
         public DbSet<AuthenticationLevel> AuthenticationLevels { get; set; }
+        public DbSet<DemoDataObject> DemoDataObject { get; set; }
+        public DbSet<DemoDataProperties> DemoDataProperties { get; set; }
     }
 }
