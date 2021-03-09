@@ -43,7 +43,7 @@ namespace core_api.Controllers
             return result;
         }
 
-        // POST api/demodata/AddDemoObject
+        // POST api/demodata/AddDemoProperties
         [HttpPost("AddDemoProperties")]
         public HttpResult AddDemoProperties(DemoDataPropertiesViewModel demoPropsObject)
         {
