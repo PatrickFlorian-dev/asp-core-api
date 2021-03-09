@@ -79,7 +79,7 @@ namespace LOGIC.UserLogic
             try
             {
 
-                string token = _user.Authenticate(userObj);
+                AuthenticationResponse token = _user.Authenticate(userObj);
 
                 if( token == null )
                 {

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using BASE.Models;
 
 namespace core_api.Common
 {
@@ -17,15 +18,18 @@ namespace core_api.Common
 
         private DatabaseContext dbContext = new DatabaseContext(DatabaseContext.ops.dbOptions);
         private readonly PasswordCrypter passwordCrypter;
+        private readonly RefreshTokenGenerator refreshTokenGenerator = new RefreshTokenGenerator();
 
         public JwtAuthenticationManager()
         {
             this.passwordCrypter = new PasswordCrypter();
         }
 
-        public string Authenticate(string username, string password)
+        public AuthenticationResponse Authenticate(string username, string password)
         {
             string tokenKeyEnvStr = Environment.GetEnvironmentVariable("APP_TOKEN_KEY");
+
+            AuthenticationResponse authResponse = new AuthenticationResponse();
 
             User checkUserExists = dbContext.Users
               .Where
@@ -35,7 +39,7 @@ namespace core_api.Common
             // Username doesn't exist in user model 
             if (checkUserExists == null)
             {
-                return null;
+                return authResponse;
             }
 
             string deCryptedPassword = passwordCrypter.DecryptPassword(checkUserExists.Password);
@@ -43,14 +47,14 @@ namespace core_api.Common
             // Password doesn't match, case sensitive
             if( deCryptedPassword != password)
             {
-                return null;
+                return authResponse;
             }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
 
-            var tokenKey = Encoding.ASCII.GetBytes(tokenKeyEnvStr);
+            byte[] tokenKey = Encoding.ASCII.GetBytes(tokenKeyEnvStr);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Name, username)
@@ -63,9 +67,14 @@ namespace core_api.Common
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            var refreshToken = refreshTokenGenerator.GenerateToken();
 
-            return tokenHandler.WriteToken(token);
+            authResponse.JwtToken = tokenHandler.WriteToken(token);
+            authResponse.RefreshToken = refreshToken;
+
+            return authResponse;
 
         }
+
     }
 }

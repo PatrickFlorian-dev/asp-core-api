@@ -7,6 +7,7 @@ using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,10 +83,11 @@ namespace DAL.Functions
         }
 
         // Authenticate a user and get back a JWT token
-        public string Authenticate(UserViewModel userObj)
+        public AuthenticationResponse Authenticate(UserViewModel userObj)
         {
             return jwtAuthenticationManager.Authenticate(userObj.Username, userObj.Password);
            
         }
+
     }
 }
